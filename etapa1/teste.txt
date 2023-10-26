@@ -34,6 +34,11 @@ isso"eh um "teste
 <= <  > >=
 >!=
 //isso é um comentario
->_666_< //a partir daqui eh um comentario!
-/// 12 \\\ sai
+>_666_< // a partir daqui eh um comentario!
+nova linha
+/// 12 
+nova linha
+dentro do comentario
+\\\ fora do comentario
 teste
+int j8_. = 1 ;

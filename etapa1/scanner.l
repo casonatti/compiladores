@@ -3,16 +3,27 @@ Autor: Jeison Casonatti Caroly
 Data: 25/11/2023
 Disciplina: Compiladores B
 Etapa 1
- */
+*/
 
 %{
 
 #include "tokens.h"
+
 int lineNumber = 1;
+int running = 1;
+
+int getLineNumber(void) {
+  return lineNumber;
+}
+
+int isRunning(void) {
+  return running;
+}
 
 %}
 
 %x COMMENT
+%x COMMENT_LINE
 
 %%
 
@@ -29,7 +40,7 @@ int lineNumber = 1;
 "return"              {return KW_RETURN;}
 
   /* caracteres especiais */
-[-+/*,;(){}=%<>&|~]   {printf("Achei um %c\n", yytext[0]); /* TODO */}
+[-+/*,;(){}=%<>&|~]   {return yytext[0];}
 
   /* operadores compostos */
 "<="                  {return OPERATOR_LE;}
@@ -38,18 +49,17 @@ int lineNumber = 1;
 "!="                  {return OPERATOR_DIF;}
 
   /* literais */
-['].*[']              {return LIT_CHAR;}
-[-+]?[0-9]+           {return LIT_INT;}
-[-+]?[0-9]+[.][0-9]+  {return LIT_REAL;}
-["].*["]              {return LIT_STRING}
+(['].['])|([']['])    {return LIT_CHAR;}
+[0-9]+                {return LIT_INT;}
+[0-9]+[.][0-9]+       {return LIT_REAL;}
+["].*["]              {return LIT_STRING;}
 
   /* comentarios */
-((\/\/.*)|(\/\/\/[^(\\\\\\)]*\\\\\\))|(\/\/\/)|(\\\\\\) {printf("ACHEI ESSE DAQUI %s\n", yytext);}
-  /* "///"                 {BEGIN COMMENT;} */
-  /* "//".*                {} */
+"///"                 {BEGIN(COMMENT);}
+"//"                  {BEGIN(COMMENT_LINE);}
 
   /* identificadores */
-[0-9_]*?[a-zA-Z_0-9]+  {return TK_IDENTIFIER;}
+[a-zA-Z0-9_]+  {return TK_IDENTIFIER;}
 
   /* espacos em branco */
 "\n"                  {lineNumber++;}
@@ -57,20 +67,18 @@ int lineNumber = 1;
 
 .                     {return TOKEN_ERROR;}
 
-<COMMENT>[^.\n]* {BEGIN(INITIAL);}
-<COMMENT>\n {lineNumber++;}
-<COMMENT>.*"\\\\\\" {}
+<COMMENT>"\n"         {lineNumber++;}
+<COMMENT>.            {}
+<COMMENT>"\\\\\\"     {BEGIN(INITIAL);}
+
+<COMMENT_LINE>"\n"    {lineNumber++; BEGIN(INITIAL);}
+<COMMENT_LINE>.       {}
 
 %%
 
-int main() {
-  yyin = fopen("teste.txt", "r");
-  yylex();
-  printf("Esse programa tinha %d linhas\n", lineNumber);
-
-  return 0;
-}
+#include "main.c"
 
 int yywrap() {
+  running = 0;
   return 1;
 }
