@@ -1,0 +1,95 @@
+resumo:
+	fazer um analisador lexico utilizando a ferramenta de geração de reconhecedores flex e inicializar uma tabela global de simbolos encontrados
+
+func:
+	[] reconhecer as expressoes regulares que descrevem cada tipo de lexema
+	[] classificar os lexemas reconhecidos emtokens retornando as constantes definidas no arquivo tokens.h fornecido ou codigos ascii para caracteres simples
+	[] incluir os identificadores e os literais (inteiros, reais, caracteres e strings) em uma tablea de de simbolos global implementada com strutura hash
+	[] controlar o numero de linha do arquivo fonte e fornecer uma funcao declarada como int getLineNumber(void) a ser usada nos testes e pela futura analise sintatica
+	[] ignorar comentarios de unica linha e multiplas linhas
+	[] informar erro lexico ao encontrar caracteres invalidos na entrada retornando o token de erro
+	[] definir e atualizar uma variavel global e uma funcao int isRunning(void), que matem e retorna o valor true (diferente de 0) durante a analise e muda para false (igual a 0) ao encontrar a marca de fim de arquivo
+	
+desc dos tokens: 
+	carac espec (usar o proprio codigo ascii convertido para inteiro como retorno):
+		[.] , 
+		[.] ; 
+		[.] () 
+		[] [] 
+		[.] {} 
+		[.] =
+		[.] +
+		[.] -
+		[.] *
+		[.] /
+		[.] %
+		[.] <>
+		[.] &
+		[.] |
+		[.] ~	
+	
+	palavras reservadas:
+		[.] char
+		[.] int
+		[.] float
+		[.] code
+		[.] if
+		[.] else
+		[.] while
+		[.] input
+		[.] print
+		[.] return
+	
+	operadores compostos:
+		[.] <= | OPERATOR_LE
+		[.] >= | OPERATOR_GE
+		[.] == | OPERATOR_EQ
+		[.] != | OPERATOR_DIF
+		
+	identificadores (designam variaveis, vetores e nomes de funcoes):
+		[.] sequencia de caracteres de um ou mais caracteres alfabeticos minusculos ou maiusculos e tambem o caractere '_', podem conter digitos EM QUALQUER posicao, desde que contenham ao menos um caractere que nao seja digito (0-9)
+	
+	literais:
+		[.] inteiros: formados por uma sequencia de um ou mais digitos
+		[.] caracter: sao representados por um unico caractere entre ''
+		[.] float: definidos por dois literais decimais separados por .
+		[REVER] string: qualquer sequencia de caracteres entre aspas duplas e strings consecutivas nao podem ser consideradas como apenas uma, o que significa que o caractere de aspas duplas nao pode fazer parte de uma string. Para incluir os caracteres de aspas duplas e final de linha, devem ser usadas as sequencias de escape, como "\"" e "\n"
+	
+	comentarios:
+		[.] comentarios de uma unica linha começam em qualquer ponto com a sequencia "//" e terminam na proxima marca de final de linha, representada pelo caractere '\n'
+		[REVER] comentarios de multiplas linhas iniciam pela sequencia "///" e terminal pela sequencia "\\\", sendo que podem conter quaisquer caracteres, que serão todos ignorados, incluindo uma ou mais quebras de linha, as quais, entretanto, devem ser contabilizadas para controle do numero de linha.
+		
+	caracteres em branco (devem ser ignorados pelo analisador lexico):
+		[.] espaco
+		[.] tab
+		[.] nova linha
+
+********************************************************************
+********************************************************************
+
+Formato de Entrega:
+
+	[] tar cvzf etapa1.tgz .
+	[] implementar void initMe(void)
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
