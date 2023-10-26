@@ -20,7 +20,7 @@ ____S7rUc7____
 -3bcde5
 22.4
 "string"
-"string com 9901. teste! \n "\n""
+"string com 9901. teste! \"\n\" \n " ""
 5_+3=_8
 _5 + 3 = 8
 isso"eh um "teste
@@ -37,8 +37,8 @@ isso"eh um "teste
 >_666_< // a partir daqui eh um comentario!
 nova linha
 /// 12 
-nova linha
+nova linha ! [^]
 dentro do comentario
 \\\ fora do comentario
-teste
+teste [ ! ] ^
 int j8_. = 1 ;

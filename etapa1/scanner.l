@@ -8,6 +8,7 @@ Etapa 1
 %{
 
 #include "tokens.h"
+#include "hash.c"
 
 int lineNumber = 1;
 int running = 1;
@@ -41,6 +42,7 @@ int isRunning(void) {
 
   /* caracteres especiais */
 [-+/*,;(){}=%<>&|~]   {return yytext[0];}
+\[|\]                 {return yytext[0];}
 
   /* operadores compostos */
 "<="                  {return OPERATOR_LE;}
@@ -49,17 +51,17 @@ int isRunning(void) {
 "!="                  {return OPERATOR_DIF;}
 
   /* literais */
-(['].['])|([']['])    {return LIT_CHAR;}
-[0-9]+                {return LIT_INT;}
-[0-9]+[.][0-9]+       {return LIT_REAL;}
-["].*["]              {return LIT_STRING;}
+(['].['])|([']['])    {hashInsert(LIT_CHAR, yytext); return LIT_CHAR;}
+[0-9]+                {hashInsert(LIT_INT, yytext); return LIT_INT;}
+[0-9]+[.][0-9]+       {hashInsert(LIT_REAL, yytext); return LIT_REAL;}
+["](\\.|[^\"\\])*["]  {hashInsert(LIT_STRING, yytext); return LIT_STRING;}
 
   /* comentarios */
 "///"                 {BEGIN(COMMENT);}
 "//"                  {BEGIN(COMMENT_LINE);}
 
   /* identificadores */
-[a-zA-Z0-9_]+  {return TK_IDENTIFIER;}
+[a-zA-Z0-9_]+  {hashInsert(TK_IDENTIFIER, yytext); return TK_IDENTIFIER;}
 
   /* espacos em branco */
 "\n"                  {lineNumber++;}
@@ -75,6 +77,10 @@ int isRunning(void) {
 <COMMENT_LINE>.       {}
 
 %%
+
+void initMe(void) {
+  hashInit();
+}
 
 #include "main.c"
 
