@@ -1,0 +1,4 @@
+int x = 3;
+int x = 'y';
+char y = 15.001; 
+float f= 14;

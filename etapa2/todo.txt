@@ -1,0 +1,23 @@
+************************************************************************************
+********************			Compiladores etapa2			   *********************
+************************************************************************************
+
+
+funcionalidades:
+	[] o programa principal deve receber um nome de arquivo por parametro e rotina yyparse() para reconhecer se o conteudo do arquivo faz parte da linguagem. Se concluida com sucesso, a analise deve retornar o valor 0 com exit(0)
+	[] imprimir uma mensagem de erro sintatico para os programas nao reconhecidos, informando a linha onde o erro ocorreu, e retornar o valor 3 com exit(3)
+	[] os nodos armazenados na tabela hash devem distinguir entre os tipos de simbolos armazenados, e o nodo deve ser associado ao token retornado atraves da atribuicao yylval.symbol
+	
+
+descricao geral da linguagem:
+	[] programa: lista de declaracoes globais seguida de lista de codigos das func. A lista de decl globais pode conter declaracoes de variaveis, vetores ou func (prototipos), em qualquer ordem, mesmo intercaladas. A lista de codigo deve vir obrigatoriamente apos a lista de declaracoes e contera apenas as implementacoes de cada func. Dentro do codigo teremos comandos que podem ser de atribuicao, controle de fluxo ou os comandos print e return. Um bloco tambem eh considerado sintaticamente como um comando, podendo aparecer no lugar de qualquer comando, e a linguagem tambem aceita o comando vazio
+	[] declaracoes globais:
+	[] implementacao de funcoes:
+	[] bloco de comandos:
+	[] comandos simples: 
+	[] expressoes aritmeticas:
+	[] comandos de controle de fluxo: 
+	
+************************************************************************************
+*** [] ENVIADO ***
+************************************************************************************
