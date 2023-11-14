@@ -21,3 +21,6 @@ descricao geral da linguagem:
 ************************************************************************************
 *** [] ENVIADO ***
 ************************************************************************************
+
+BUGS:
+	parse() ta mostrnado o erro na proxima linha => se existe um erro na linha 13, ele mostra como se o erro estivesse na proxima linha lida.
