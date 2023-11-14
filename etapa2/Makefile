@@ -7,4 +7,4 @@ lex.yy.c: scanner.l y.tab.h
 y.tab.h: parser.y
 	yacc -d parser.y
 clean:
-	rm *.o lex.yy.* y.tab.* parser.output etapa2
+	rm *.o lex.yy.* y.tab.* *.output etapa2

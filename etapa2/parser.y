@@ -40,27 +40,27 @@
 programa: ldecl_globais
           ;
 
-ldecl_globais:  lista_decl ldecl_proto
+ldecl_globais:  lista_decl
                 ;
 
-lista_decl: declaracao lista_decl
+lista_decl: decl_var lista_decl
+            | decl_vetor lista_decl
+            | decl_proto lista_decl
             |
             ;
 
-ldecl_proto:  decl_proto ldecl_proto
-              |
-              ;
-
-declaracao: tipo TK_IDENTIFIER '=' literal ';'
-          | tipo TK_IDENTIFIER '[' LIT_INT ']' opcional ';'
+decl_var: tipo TK_IDENTIFIER '=' literal ';'
           ;
+
+decl_vetor: tipo TK_IDENTIFIER '[' LIT_INT ']' opcional ';'
+            ;
+
+decl_proto: tipo TK_IDENTIFIER '(' lparam ')' ';'
+            ;
 
 opcional: literal opcional
           |
           ;
-
-decl_proto: tipo TK_IDENTIFIER '(' lparam ')' ';'
-            ;
 
 lparam: param fim_param
         |
