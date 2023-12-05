@@ -140,7 +140,6 @@ expr: expr '+' expr
       | LIT_CHAR
       | LIT_INT
       | LIT_REAL
-      // | LIT_STRING /* se descomentar da conflito reduce/reduce */
       | '(' expr ')'
       ;
 
