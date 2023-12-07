@@ -1,6 +1,8 @@
 #ifndef AST_H
 #define AST_H
 
+#include <stdlib.h>
+#include <stdio.h>
 #include "hash.h"
 
 #define MAX_SONS 4
@@ -23,13 +25,32 @@ enum AST_ENUM {
   AST_PAREN,
   AST_VEC,
   AST_FUN,
-  AST_KWCHAR,
-  AST_KWINT,
-  AST_KWFLOAT,
+  AST_CHAR,
+  AST_INT,
+  AST_FLOAT,
   AST_ARGLSTINIT,
   AST_ARGLST,
   AST_CMDLST,
-  AST_BLOCK
+  AST_BLOCK,
+  AST_DECVAR,
+  AST_DECVEC,
+  AST_DECPROTO,
+  AST_OPT,
+  AST_LSTPARAMINIT,
+  AST_LSTPARAM,
+  AST_PARAM,
+  AST_ATTR,
+  AST_VECATTR,
+  AST_CODE,
+  AST_INPUT,
+  AST_PRINT,
+  AST_IF,
+  AST_ELSE,
+  AST_WHILE,
+  AST_RETURN,
+  AST_LSTDECGLOB,
+  AST_LSTDEC,
+  AST_LSTCODE
 };
 
 typedef struct ast_node {

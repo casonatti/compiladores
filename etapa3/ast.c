@@ -21,7 +21,7 @@ void astPrint(AST* node, int level) {
     printf(" ");
   }
 
-  printf("AST(");
+  printf("AST( ");
   switch((node->type)) {
     case AST_SYMBOL: printf("AST_SYMBOL"); break;
     case AST_ADD: printf("AST_ADD"); break;
@@ -40,17 +40,36 @@ void astPrint(AST* node, int level) {
     case AST_PAREN: printf("AST_PAREN"); break;
     case AST_VEC: printf("AST_VEC"); break;
     case AST_FUN: printf("AST_FUN"); break;
-    case AST_KWCHAR: printf("AST_KWCHAR"); break;
-    case AST_KWINT: printf("AST_KWINT"); break;
-    case AST_KWFLOAT: printf("AST_KWFLOAT"); break;
+    case AST_CHAR: printf("AST_KWCHAR"); break;
+    case AST_INT: printf("AST_KWINT"); break;
+    case AST_FLOAT: printf("AST_KWFLOAT"); break;
     case AST_ARGLSTINIT: printf("AST_ARGLSTINIT"); break;
     case AST_ARGLST: printf("AST_ARGLST"); break;
     case AST_CMDLST: printf("AST_CMDLST"); break;
     case AST_BLOCK: printf("AST_BLOCK"); break;
+    case AST_DECVAR: printf("AST_DECVAR"); break;
+    case AST_DECVEC: printf("AST_DECVEC"); break;
+    case AST_DECPROTO: printf("AST_DECPROTO"); break;
+    case AST_OPT: printf("AST_OPT"); break;
+    case AST_LSTPARAMINIT: printf("AST_LSTPARAMINIT"); break;
+    case AST_LSTPARAM: printf("AST_LSTPARAM"); break;
+    case AST_PARAM: printf("AST_PARAM"); break;
+    case AST_ATTR: printf("AST_ATTR"); break;
+    case AST_VECATTR: printf("AST_VECATTR"); break;
+    case AST_CODE: printf("AST_CODE"); break;
+    case AST_INPUT: printf("AST_INPUT"); break;
+    case AST_PRINT: printf("AST_PRINT"); break;
+    case AST_IF: printf("AST_IF"); break;
+    case AST_ELSE: printf("AST_ELSE"); break;
+    case AST_WHILE: printf("AST_WHILE"); break;
+    case AST_RETURN: printf("AST_RETURN"); break;
+    case AST_LSTDECGLOB: printf("AST_LSTDECGLOB"); break;
+    case AST_LSTDEC: printf("AST_LSTDEC"); break;
+    case AST_LSTCODE: printf("AST_LSTCODE"); break;
     default: printf("AST_UNKNOWN"); break;
   }
 
-  printf("%s\n", node->symbol?node->symbol->text:"");
+  printf(" %s )\n", node->symbol?node->symbol->text:"");
   for(i=0; i<MAX_SONS; i++) {
     astPrint(node->son[i], level+1);
   }

@@ -5,6 +5,10 @@ Codigo gerado pelo professor Marcelo Johann em aula.
 #ifndef HASH_H
 #define HASH_H
 
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
 #define HASH_SIZE 997
 
 typedef struct hash_node {
