@@ -24,7 +24,7 @@ extern void initMe(void);
 int main(int argc, char* argv[]) {
   int token;
   int ret;
-  FILE* output = 0;
+  FILE* output;
 
   if (argc < 3) {
     printf("call: ./etapa3 <input_file> <output_file>\n");
@@ -34,7 +34,7 @@ int main(int argc, char* argv[]) {
     printf("Cannot open file %s...\n",argv[1]);
     exit(1);
   }
-  if (!(output = fopen(argv[2], "w+"))) {
+  if (!(output = fopen(argv[2], "w"))) {
     printf("Cannot open file %s...\n",argv[1]);
     exit(1);
   }
@@ -43,7 +43,9 @@ int main(int argc, char* argv[]) {
   
   yyparse();
 
-  //uncompile(output, getAST());
+  printf("\n\nStart uncompilation\n\n");
+
+  uncompileAST(getAST(), output);
 
   fclose(output);
 

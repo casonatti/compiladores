@@ -61,5 +61,6 @@ typedef struct ast_node {
 
 AST* astCreate(int type, HASH_NODE* symbol, AST* son0, AST* son1, AST* son2, AST* son3);
 void astPrint(AST* node, int level);
+void uncompileAST(AST* node, FILE* file);
 
 #endif

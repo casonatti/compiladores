@@ -23,7 +23,9 @@ Este eh um comentario
 de multiplas 
 linhas
 \\\
-
+code teste {
+  d = input(int);
+}
 code nome a = 1;
 code teste b = 1 - a;
 
@@ -42,7 +44,6 @@ code main
   }
 
   print "Digite um numero: \n";
-  d = input(int);
   print "Digite mais um numero: \n";
 
   while (i<10)
