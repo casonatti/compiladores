@@ -1,3 +1,10 @@
+/*
+Autor: Jeison Casonatti Caroly
+Data: 06/12/2023
+Disciplina: Compiladores B
+Etapa 3
+*/
+
 #ifndef AST_H
 #define AST_H
 
@@ -55,11 +62,13 @@ enum AST_ENUM {
 
 typedef struct ast_node {
   int type;
+  int dataType;
   HASH_NODE* symbol;
   struct ast_node* son[MAX_SONS];
+  int lineNumber;
 } AST;
 
-AST* astCreate(int type, HASH_NODE* symbol, AST* son0, AST* son1, AST* son2, AST* son3);
+AST* astCreate(int type, HASH_NODE* symbol, AST* son0, AST* son1, AST* son2, AST* son3, int lineNumber);
 void astPrint(AST* node, int level);
 void uncompileAST(AST* node, FILE* file);
 

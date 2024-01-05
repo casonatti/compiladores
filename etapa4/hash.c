@@ -13,6 +13,23 @@ void hashInit(void) {
     hashTable[i] = 0;
 }
 
+int hashCheckUndeclared() {
+  HASH_NODE *node;
+	int undeclaredVariables = 0;
+	for(int i = 0; i < HASH_SIZE; i++){
+		if(hashTable[i] != NULL){
+			for(node = hashTable[i]; node != NULL; node = node->next){
+				if(node->type == SYMBOL_IDENTIFIER){
+					fprintf(stderr, "Semantic error: Variable %s undeclared.\n", node->text);				
+					undeclaredVariables++;
+				}
+			}
+		}
+	}
+
+	return undeclaredVariables;	
+}
+
 HASH_NODE *hashInsert(int type, char* text) {
   HASH_NODE *newNode;
   int address = hashAddress(text);

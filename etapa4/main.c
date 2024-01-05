@@ -20,6 +20,7 @@ extern AST* getAST();
 extern int getLineNumber(void);
 extern int isRunning(void);
 extern void initMe(void);
+extern int checkSemantic();
 
 int main(int argc, char* argv[]) {
   int token;
@@ -27,7 +28,7 @@ int main(int argc, char* argv[]) {
   FILE* output;
 
   if (argc < 3) {
-    printf("call: ./etapa3 <input_file> <output_file>\n");
+    printf("call: ./etapa4 <input_file> <output_file>\n");
     exit(1);
   }
   if (!(file(argv[1]))) {
@@ -48,6 +49,10 @@ int main(int argc, char* argv[]) {
   uncompileAST(getAST(), output);
 
   fclose(output);
+
+  printf("\n\nChecking Semantic\n\n");
+
+  checkSemantic();
 
   exit(0);
 }

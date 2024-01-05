@@ -1,17 +1,12 @@
 /*
 Autor: Jeison Casonatti Caroly
-Data: 06/12/2023
+Data: 16/12/2023
 Disciplina: Compiladores B
-Etapa 3
+Etapa 4
 */
 
 %{
-#define SYMBOL_LIT_INT 1
-#define SYMBOL_LIT_REAL 2
-#define SYMBOL_LIT_CHAR 3
-#define SYMBOL_LIT_STRING 4
-#define SYMBOL_IDENTIFIER 7
-
+  
 #include <stdio.h>
 #include "hash.h"
 #include "ast.h"
@@ -60,17 +55,17 @@ int yyerror();
 "!="                  {return OPERATOR_DIF;}
 
   /* literais */
-(['].['])|([']['])    {yylval.symbol = hashInsert(LIT_CHAR, yytext); return LIT_CHAR;}
-[0-9]+                {yylval.symbol = hashInsert(LIT_INT, yytext); return LIT_INT;}
-[0-9]+[.][0-9]+       {yylval.symbol = hashInsert(LIT_REAL, yytext); return LIT_REAL;}
-["](\\.|[^\"\\])*["]  {yylval.symbol = hashInsert(LIT_STRING, yytext); return LIT_STRING;}
+(['].['])|([']['])    {yylval.symbol = hashInsert(SYMBOL_LIT_CHAR, yytext); return LIT_CHAR;}
+[0-9]+                {yylval.symbol = hashInsert(SYMBOL_LIT_INT, yytext); return LIT_INT;}
+[0-9]+[.][0-9]+       {yylval.symbol = hashInsert(SYMBOL_LIT_REAL, yytext); return LIT_REAL;}
+["](\\.|[^\"\\])*["]  {yylval.symbol = hashInsert(SYMBOL_LIT_STRING, yytext); return LIT_STRING;}
 
   /* comentarios */
 "///"                 {BEGIN(COMMENT);}
 "//"                  {BEGIN(COMMENT_LINE);}
 
   /* identificadores */
-[a-zA-Z0-9_]+         {yylval.symbol = hashInsert(TK_IDENTIFIER, yytext); return TK_IDENTIFIER;}
+[a-zA-Z0-9_]+         {yylval.symbol = hashInsert(SYMBOL_IDENTIFIER, yytext); return TK_IDENTIFIER;}
 
   /* espacos em branco */
 "\n"                  {lineNumber++;}

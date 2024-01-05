@@ -1,6 +1,13 @@
+/*
+Autor: Jeison Casonatti Caroly
+Data: 06/12/2023
+Disciplina: Compiladores B
+Etapa 3
+*/
+
 #include "ast.h"
 
-AST* astCreate(int type, HASH_NODE* symbol, AST* son0, AST* son1, AST* son2, AST* son3) {
+AST* astCreate(int type, HASH_NODE* symbol, AST* son0, AST* son1, AST* son2, AST* son3, int lineNumber) {
   AST* newnode = (AST*)calloc(1, sizeof(AST));
   newnode->type = type;
   newnode->symbol = symbol;
@@ -8,6 +15,7 @@ AST* astCreate(int type, HASH_NODE* symbol, AST* son0, AST* son1, AST* son2, AST
   newnode->son[1] = son1;
   newnode->son[2] = son2;
   newnode->son[3] = son3;
+  newnode->lineNumber = lineNumber;
 
   return newnode;
 }
