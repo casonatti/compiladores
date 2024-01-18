@@ -39,6 +39,14 @@ HASH_NODE *hashInsert(int type, char* text) {
 
   newNode = (HASH_NODE*) calloc(1, sizeof(HASH_NODE));
   newNode->type = type;
+
+  if(newNode->type == SYMBOL_LIT_INT)
+    newNode->dataType = DATATYPE_INT;
+  else if(newNode->type == SYMBOL_LIT_CHAR)
+    newNode->dataType = DATATYPE_CHAR;
+  else if(newNode->type == SYMBOL_LIT_REAL)
+    newNode->dataType = DATATYPE_REAL; 
+
   newNode->text = (char*) calloc(strlen(text)+1, sizeof(char));
   strcpy(newNode->text, text);
   newNode->next = hashTable[address];

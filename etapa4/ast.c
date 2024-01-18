@@ -88,7 +88,8 @@ void uncompileAST(AST* node, FILE* file){
   if(node == NULL)
     return;
 
-  printf("Node: %d\n", node->type);
+  //debug
+  //printf("Node: %d\n", node->type);
 
   switch(node->type){
     case AST_LSTDECGLOB:
