@@ -34,12 +34,13 @@ Codigo gerado pelo professor Marcelo Johann em aula.
 #define SYMBOL_IDENTIFIER 5
 #define SYMBOL_VAR 6
 #define SYMBOL_VEC 7
-#define SYMBOL_FUNC 8
-#define SYMBOL_PARAM 9
-#define DATATYPE_INT 10
-#define DATATYPE_REAL 11
-#define DATATYPE_CHAR 12
-#define DATATYPE_BOOL 13
+#define SYMBOL_PROTO 8
+#define SYMBOL_CODE 9
+#define SYMBOL_PARAM 10
+#define DATATYPE_INT 11
+#define DATATYPE_REAL 12
+#define DATATYPE_CHAR 13
+#define DATATYPE_BOOL 14
 typedef struct hash_node {
   int type;
   int dataType;

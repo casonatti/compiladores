@@ -75,7 +75,7 @@ void setIdentifierType(AST* node) {
         fprintf(stderr,"Semantic error in line %d: Function %s redeclaration.(proto)\n", node->lineNumber, node->symbol->text);
         errorCounter++;
       } else{
-        node->symbol->type = SYMBOL_FUNC;
+        node->symbol->type = SYMBOL_PROTO;
         if(node->son[0]->type == AST_INT) node->symbol->dataType = DATATYPE_INT;
         else if(node->son[0]->type == AST_FLOAT) node->symbol->dataType = DATATYPE_REAL;
         else if(node->son[0]->type == AST_CHAR) node->symbol->dataType = DATATYPE_CHAR;
@@ -84,11 +84,11 @@ void setIdentifierType(AST* node) {
     break;
 
     case AST_CODE:
-      if(node->symbol->type != SYMBOL_IDENTIFIER){
-        fprintf(stderr,"Semantic error in line %d: Function %s redeclaration (code).\n", node->lineNumber, node->symbol->text);
+      if(node->symbol->type != SYMBOL_PROTO){
+        fprintf(stderr,"Semantic error in line %d: Function %s has not prototype.\n", node->lineNumber, node->symbol->text);
         errorCounter++;
       } else {
-        node->symbol->type = SYMBOL_FUNC;
+        node->symbol->type = SYMBOL_CODE;
         if(node->son[0]->type == AST_INT) node->symbol->dataType = DATATYPE_INT;
         else if(node->son[0]->type == AST_FLOAT) node->symbol->dataType = DATATYPE_REAL;
         else if(node->son[0]->type == AST_CHAR) node->symbol->dataType = DATATYPE_CHAR;
@@ -125,7 +125,7 @@ void setNodeType(AST* node) {
     setNodeType(node->son[i]);
 
   if(node->type == AST_SYMBOL) {
-    if(node->symbol->type == SYMBOL_VEC || node->symbol->type == SYMBOL_FUNC) {
+    if(node->symbol->type == SYMBOL_VEC || node->symbol->type == SYMBOL_CODE) {
       fprintf(stderr, "Semantic error in line %d: function/vector used as scalar variable.\n", node->lineNumber);
       errorCounter++;
     }
@@ -306,7 +306,7 @@ void checkPrint(AST* node) {
     return;
   
   if(node->son[0]->type == AST_SYMBOL) {
-    if(node->son[0]->symbol->type == SYMBOL_FUNC) {
+    if(node->son[0]->symbol->type == SYMBOL_CODE) {
       fprintf(stderr, "Semantic error in line %d: Cannot print function\n", node->lineNumber);
       errorCounter++;
     } else if(node->son[0]->symbol->type == SYMBOL_VEC) {
@@ -329,24 +329,9 @@ void validateFunction(AST* node) {
   }
 }
 
-AST* findFuncionDeclaration(char* name, AST* node) {
-  if(node->symbol != NULL && node->type == AST_DECPROTO && strcmp(node->symbol->text, name) == 0)
-    return node;
-
-  for(int i = 0; i < MAX_SONS; i++) {
-    if(node->son[i] == NULL)
-      return NULL;
-    AST* find = findFuncionDeclaration(name, node->son[i]);
-    if(find != NULL)
-      return find;
-  }
-
-  return NULL;
-}
-
 int checkNumberOfArguments(AST* node, AST* decl) {
   int calledArguments = getNumberOfArguments(node->son[0]);
-  int calledDeclArguments = getNumberOfArguments(decl->son[0]);
+  int calledDeclArguments = getNumberOfArguments(decl->son[1]);
   if(calledArguments != calledDeclArguments) {
     fprintf(stderr, "Semantic error in line %d: Incompatible number of arguments.\n", node->lineNumber);
 		errorCounter++;
@@ -374,7 +359,8 @@ void compareCalledArguments(AST* node, AST* decl) {
     }
 
     if(node->son[0]->type == AST_SYMBOL) {
-      if(node->son[0]->symbol->type == SYMBOL_FUNC) {
+      if(node->son[0]->symbol->type == SYMBOL_CODE) {
+        printf("Node son[0] symbol type: %d\n", node->son[0]->symbol->type?node->son[0]->symbol->type:-1);
         fprintf(stderr, "Semantic error in line %d: Cannot pass function as argument\n", node->lineNumber);
 			  errorCounter++;
       } else if(node->son[0]->symbol->type == SYMBOL_VEC) {
@@ -382,10 +368,22 @@ void compareCalledArguments(AST* node, AST* decl) {
 			  errorCounter++;
       }
     }
-
-    if(node->son[0] != NULL)
-      compareCalledArguments(node->son[1], decl->son[1]);
   }
+}
+
+AST* findFuncionDeclaration(char* name, AST* node) {
+  if(node->symbol != NULL && node->type == AST_DECPROTO && strcmp(node->symbol->text, name) == 0)
+    return node;
+
+  for(int i = 0; i < MAX_SONS; i++) {
+    if(node->son[i] == NULL)
+      return NULL;
+    AST* find = findFuncionDeclaration(name, node->son[i]);
+    if(find != NULL)
+      return find;
+  }
+
+  return NULL;
 }
 
 void isReturnCompatible(AST* node, int dataType) {

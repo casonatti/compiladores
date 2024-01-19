@@ -9,23 +9,16 @@
  int  v[ 10 ] 'a'   0   'b'   0   0   0   0   0   0   0  ;
  int  matrix[ 100 ];
  float  f =  2.5 ;
- int  z =  0 ;
- int  b =  3 ;
+ int  a =  0 ;
  int  proto();
  int  teste();
- int  incn( int  p,  int  n);
- int  main();
- int  ask();
- int  nome();
- int  teste_code();
-code  teste_code  {
+ int  incn( int  x,  int  n);
+code  teste  {
 d =  input(  int  ) ;
 } code  nome a =  1 ;
 code  teste b =  1  -  a ;
 code  ask  print  "1.5" ;
-code  incn  {
-return  x  +  n ;
-} code  main  {
+code  main  {
  {
 1a =  0 ;
 d =  d  -  i ;
@@ -52,4 +45,6 @@ a =  a  +  1 ;
 }  {
  {
 } }  {
-} } 
+} } code  incn  {
+return  x  +  n ;
+} 

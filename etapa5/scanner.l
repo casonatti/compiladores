@@ -1,0 +1,104 @@
+/*
+Autor: Jeison Casonatti Caroly
+Data: 06/12/2023
+Disciplina: Compiladores B
+Etapa 3
+*/
+
+%{
+#define SYMBOL_LIT_INT 1
+#define SYMBOL_LIT_REAL 2
+#define SYMBOL_LIT_CHAR 3
+#define SYMBOL_LIT_STRING 4
+#define SYMBOL_IDENTIFIER 7
+
+#include <stdio.h>
+#include "hash.h"
+#include "ast.h"
+#include "y.tab.h"
+
+int lineNumber = 1;
+int running = 1;
+
+int getLineNumber(void) {
+  return lineNumber;
+}
+
+int isRunning(void) {
+  return running;
+}
+
+int yyerror();
+
+%}
+
+%x COMMENT
+%x COMMENT_LINE
+
+%%
+
+  /* palavras reservadas */
+"char"                {return KW_CHAR;}
+"int"                 {return KW_INT;}
+"float"               {return KW_FLOAT;}
+"code"                {return KW_CODE;}
+"if"                  {return KW_IF;}
+"else"                {return KW_ELSE;}
+"while"               {return KW_WHILE;}
+"input"               {return KW_INPUT;}
+"print"               {return KW_PRINT;}
+"return"              {return KW_RETURN;}
+
+  /* caracteres especiais */
+[-+/*,;(){}=%<>&|~]   {return yytext[0];}
+\[|\]                 {return yytext[0];}
+
+  /* operadores compostos */
+"<="                  {return OPERATOR_LE;}
+">="                  {return OPERATOR_GE;}
+"=="                  {return OPERATOR_EQ;}
+"!="                  {return OPERATOR_DIF;}
+
+  /* literais */
+(['].['])|([']['])    {yylval.symbol = hashInsert(LIT_CHAR, yytext); return LIT_CHAR;}
+[0-9]+                {yylval.symbol = hashInsert(LIT_INT, yytext); return LIT_INT;}
+[0-9]+[.][0-9]+       {yylval.symbol = hashInsert(LIT_REAL, yytext); return LIT_REAL;}
+["](\\.|[^\"\\])*["]  {yylval.symbol = hashInsert(LIT_STRING, yytext); return LIT_STRING;}
+
+  /* comentarios */
+"///"                 {BEGIN(COMMENT);}
+"//"                  {BEGIN(COMMENT_LINE);}
+
+  /* identificadores */
+[a-zA-Z0-9_]+         {yylval.symbol = hashInsert(TK_IDENTIFIER, yytext); return TK_IDENTIFIER;}
+
+  /* espacos em branco */
+"\n"                  {lineNumber++;}
+[ "\t"]               {}
+
+.                     {return TOKEN_ERROR;}
+
+<COMMENT>"\n"         {lineNumber++;}
+<COMMENT>.            {}
+<COMMENT>"\\\\\\"     {BEGIN(INITIAL);}
+
+<COMMENT_LINE>"\n"    {lineNumber++; BEGIN(INITIAL);}
+<COMMENT_LINE>.       {}
+
+%%
+
+void initMe(void) {
+  hashInit();
+}
+
+FILE* file(char* filename) {
+  yyin = fopen(filename, "r");
+  return yyin;
+}
+
+//#include "main.c"
+
+int yywrap() {
+  running = 0;
+  return 1;
+}
