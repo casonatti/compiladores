@@ -2,24 +2,24 @@
 Autor: Jeison Casonatti Caroly
 Data: 06/12/2023
 Disciplina: Compiladores B
-Etapa 3
+Etapa 5
 */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include "ast.h"
-//#include "y.tab.h"
+#include "tac.h"
 
-//lex.yy.h
-//int yylex();
 extern int yyparse();
 extern char* yytext;
 extern FILE* yyin;
 extern FILE* file();
 extern AST* getAST();
+extern TAC* getTACs();
 extern int getLineNumber(void);
 extern int isRunning(void);
 extern void initMe(void);
+extern int checkSemantic();
 
 int main(int argc, char* argv[]) {
   int token;
@@ -27,7 +27,7 @@ int main(int argc, char* argv[]) {
   FILE* output;
 
   if (argc < 3) {
-    printf("call: ./etapa3 <input_file> <output_file>\n");
+    printf("call: ./etapa5 <input_file> <output_file>\n");
     exit(1);
   }
   if (!(file(argv[1]))) {
@@ -48,6 +48,14 @@ int main(int argc, char* argv[]) {
   uncompileAST(getAST(), output);
 
   fclose(output);
+
+  printf("\n\nChecking Semantic\n\n");
+
+  checkSemantic();
+
+  printf("Creating TACs\n");
+
+  generatedTac(getTACs());
 
   exit(0);
 }
