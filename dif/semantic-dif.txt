@@ -1,0 +1,4 @@
+152c152
+<             if(node->symbol->type != SYMBOL_VAR){
+---
+>             if(node->symbol->type != SYMBOL_VAR && node->symbol->type != SYMBOL_PARAM){

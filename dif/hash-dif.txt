@@ -1,0 +1,22 @@
+85c85,89
+< hash_node * makeTemp(){
+---
+> hash_node** getTable(){
+>     return Table;
+> }
+> 
+> hash_node* makeTemp(int datatype){
+89c93,95
+< 	return hashInsert(SYMBOL_IDENTIFIER, buffer);
+---
+>     hash_node *node = hashInsert(SYMBOL_VAR, buffer);
+>     node->datatype = datatype;
+> 	return node;
+92c98
+< hash_node * makeLabel(){
+---
+> hash_node* makeLabel(){
+96c102
+< 	return hashInsert(SYMBOL_IDENTIFIER, buffer);
+---
+> 	return hashInsert(SYMBOL_LABEL, buffer);

@@ -1,0 +1,10 @@
+19a20
+>   tac *TACs;
+86c87
+< program : l_declarations                                                  {Root=$$; astree_print(0, Root); SemanticErrors=semanticVerification(Root);}
+---
+> program : l_declarations                                                  {Root=$$; astree_print(0, Root); SemanticErrors=semanticVerification(Root); TACs=rewindTac(createTacs(Root, 0));}
+209c210
+<   return rewindTac(createTacs(Root, 0));
+---
+>   return TACs;

@@ -1,0 +1,13 @@
+17a18,19
+> #define SYMBOL_LABEL 6
+> 
+37d38
+< 
+50,51c51,54
+< hash_node * makeTemp();
+< hash_node * makeLabel();
+---
+> hash_node** getTable();
+> 
+> hash_node* makeTemp(int datatype);
+> hash_node* makeLabel();

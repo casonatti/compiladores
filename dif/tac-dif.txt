@@ -1,0 +1,45 @@
+115,127c115,127
+< 		case AST_ADD: return createBinop(TAC_ADD, sons);
+< 		case AST_SUB: return createBinop(TAC_SUB, sons);
+< 		case AST_MUL: return createBinop(TAC_MUL, sons);
+< 		case AST_DIV: return createBinop(TAC_DIV, sons);
+< 		case AST_GREAT: return createBinop(TAC_GREAT, sons);
+< 		case AST_LESS: return createBinop(TAC_LESS, sons);
+< 		case AST_EQ: return createBinop(TAC_EQ, sons);
+< 		case AST_GE: return createBinop(TAC_GE, sons);
+< 		case AST_LE: return createBinop(TAC_LE, sons);
+< 		case AST_DIF: return createBinop(TAC_DIF, sons);
+< 		case AST_AND: return createBinop(TAC_AND, sons);
+< 		case AST_OR: return createBinop(TAC_OR, sons);
+< 		case AST_NOT: return createBinop(TAC_NOT, sons);
+---
+> 		case AST_ADD: return createBinop(TAC_ADD, sons, node->datatype);
+> 		case AST_SUB: return createBinop(TAC_SUB, sons, node->datatype);
+> 		case AST_MUL: return createBinop(TAC_MUL, sons, node->datatype);
+> 		case AST_DIV: return createBinop(TAC_DIV, sons, node->datatype);
+> 		case AST_GREAT: return createBinop(TAC_GREAT, sons, node->datatype);
+> 		case AST_LESS: return createBinop(TAC_LESS, sons, node->datatype);
+> 		case AST_EQ: return createBinop(TAC_EQ, sons, node->datatype);
+> 		case AST_GE: return createBinop(TAC_GE, sons, node->datatype);
+> 		case AST_LE: return createBinop(TAC_LE, sons, node->datatype);
+> 		case AST_DIF: return createBinop(TAC_DIF, sons, node->datatype);
+> 		case AST_AND: return createBinop(TAC_AND, sons, node->datatype);
+> 		case AST_OR: return createBinop(TAC_OR, sons, node->datatype);
+> 		case AST_NOT: return createBinop(TAC_NOT, sons, node->datatype);
+141,142c141
+< 		///TODO: FUNCTIONS, PARAMETERS, ARGUMENTS AND VECTORS
+< 		case AST_FUNC: return tacJoin(sons[0], newTac(TAC_CALL, makeTemp(), node->symbol, 0));
+---
+> 		case AST_FUNC: return tacJoin(sons[0], newTac(TAC_CALL, makeTemp(node->datatype), node->symbol, 0));
+145c144
+< 		case AST_VEC: return tacJoin(sons[0], newTac(TAC_VEC, makeTemp(), node->symbol, sons[0]?sons[0]->res:0));
+---
+> 		case AST_VEC: return tacJoin(sons[0], newTac(TAC_VEC, makeTemp(node->datatype), node->symbol, sons[0]?sons[0]->res:0));
+154c153
+< tac* createBinop(int type, tac* sons[]){
+---
+> tac* createBinop(int type, tac* sons[], int datatype){
+159c158
+< 	return tacJoin(sons[0], tacJoin(sons[1], newTac(type, makeTemp(), op1, op2)));
+---
+> 	return tacJoin(sons[0], tacJoin(sons[1], newTac(type, makeTemp(datatype), op1, op2)));

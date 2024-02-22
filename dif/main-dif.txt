@@ -1,0 +1,17 @@
+2c2
+< 	ETAPA 5 - Compiladores - 2019/1 Turma A - Prof. Marcelo Johann
+---
+> 	ETAPA 6 - Compiladores - 2019/1 Turma A - Prof. Marcelo Johann
+9a10
+> #include "asm.h"
+28c29
+< 		fprintf(stderr,"Call: ./etapa5 input.txt output.txt\n");
+---
+> 		fprintf(stderr,"Call: ./etapa6 input.txt output.txt\n");
+54a56,61
+> 
+> 	fprintf(stderr, "\nCompiling...\n\n");
+> 	asmGenerate(getTACs(), getAST());
+> 
+> 	system("gcc -fno-pie -no-pie asm.s");
+> 	fprintf(stderr, "Compilation complete.\n");
